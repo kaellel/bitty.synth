@@ -13,19 +13,6 @@ Bitty.synth is developed as a hobby, and comes with no warranty. It includes con
 
 Bitty.synth is open source. It is distributed under the GNU GPLv3.
 
-## Download and Run
-
-Pre-built binaries include: Android (via Google Play), Linux (64 bit), Windows (64 bit), and HTML standalone.
-
-For Android, download and install bitty.synth from Google Play. Alternatively, directly download, unzip, and install APK manually.  
-
-For Linux, download, unzip, and run `bitty_synth`.
-
-For Windows, download, unzip, and run `bitty_synth.exe`.
-
-The HTML standalone can be run in a web browser (preferably Chrome) or by electron-prebuilt.
-
-Source code is available on Github.
 
 ## Build and Distribute with Cordova
 
