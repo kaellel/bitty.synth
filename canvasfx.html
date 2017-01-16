@@ -1,0 +1,200 @@
+<html>
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <title>CanvasFX</title>
+
+        <style>
+            .tabs .tab a{
+            color:#00ACC1;
+            }
+            .tabs .tab a:hover,.tabs .tab a.active {
+            background-color:transparent;
+            color:#008B9B;
+            }
+            .tabs .tab.disabled a,.tabs .tab.disabled a:hover {
+            color:rgba(102,147,153,0.7);
+            }
+            .tabs .indicator {
+            background-color:#009BAD;
+            }
+        </style>
+    </head>
+    <body style="overflow-x:hidden">
+        <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+
+        <script src="js/modexpression.js"></script>
+        <script src="itty_bitty_ditty_synth_library_front_end/2d_graph.js"></script>
+
+        <div style="padding:10px">
+            <a class="waves-effect waves-light btn" onclick="gotoCvs(); ">Return to Canvas</a>
+        </div>
+
+        <div id="TopBar">
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                        <li class="tab col s3"><a class="active" href="#vfx">Volume Effects</a></li>
+                        <li class="tab col s3"><a href="#pfx">Pitch Shits</a></li>
+                    </ul>
+                </div>
+                <div id="vfx" class="col s12">
+                    <!-- Volume FX content here.  -->
+                    <br />
+                    <div class="container" id="main">
+                        Volume Effects Preview: <br />
+                        <canvas id="ctxGraph">
+
+            			</canvas>
+                        <br />
+                        <div class="input-field col s12">
+        					<input value="127" id="vfxEquation" type="text" class="" onchange="refillArrays(); ">
+        					<label class="active" for="vfxEquation">vF(x)=</label>
+        				</div>
+                        <div class="input-field col s6">
+        					<input disabled value="0" id="vfxStartingFrame" type="text" class="" onchange="refillArrays(); ">
+        					<label class="active" for="vfxStartingFrame">Starting Frame</label>
+        				</div>
+                        <div class="input-field col s6">
+        					<input value="1000" id="vfxEndingFrame" type="text" class="" onchange="refillArrays(); ">
+        					<label class="active" for="vfxEndingFrame">Ending Frame</label>
+        				</div>
+                    </div>
+                </div>
+                <div id="pfx" class="col s12">
+                    <!-- Pitch FX content here.  -->
+                    <br />
+                    <div class="container">
+                        Pitch Effects Preview: <br />
+                        <canvas id="ctxGraph2">
+
+            			</canvas>
+                        <br />
+                        <div class="input-field col s12">
+        					<input value="0" id="pfxEquation" type="text" class="" onchange="refillArrays(); ">
+        					<label class="active" for="pfxEquation">pF(x)=</label>
+        				</div>
+                        <div class="input-field col s6">
+        					<input disabled value="0" id="pfxStartingFrame" type="text" class="" onchange="refillArrays(); ">
+        					<label class="active" for="pfxStartingFrame">Starting Frame</label>
+        				</div>
+                        <div class="input-field col s6">
+        					<input value="1000" id="pfxEndingFrame" type="text" class="" onchange="refillArrays(); ">
+        					<label class="active" for="pfxEndingFrame">Ending Frame</label>
+        				</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+        // Get the Canvas Number from URL information
+        // val: the property p in "canvas.html?p=x"
+        function parseURL(val) {
+            var result = "Invalid Input Parameters",
+                tmp = [];
+            var items = location.search.substr(1).split("&");
+            for (var index = 0; index < items.length; index++) {
+                tmp = items[index].split("=");
+                if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
+            }
+            return result;
+        }
+
+        // The canvas number is determined by the "?canvasn=value" in the URL
+        var canvasNumber = parseURL("canvasn");
+
+        var vFXarray = [];
+        var pFXarray = [];
+
+        function loadFormContents() {
+            if (localStorage.getItem("bitty.synth.vfxStart" + canvasNumber) != undefined) {
+                vfxStartingFrame.value = localStorage.getItem("bitty.synth.vfxStart" + canvasNumber);
+            }
+            if (localStorage.getItem("bitty.synth.vfxEnd" + canvasNumber) != undefined) {
+                vfxEndingFrame.value = localStorage.getItem("bitty.synth.vfxEnd" + canvasNumber);
+            }
+            if (localStorage.getItem("bitty.synth.vfxEq" + canvasNumber) != undefined) {
+                vfxEquation.value = localStorage.getItem("bitty.synth.vfxEq" + canvasNumber);
+            }
+            if (localStorage.getItem("bitty.synth.pfxStart" + canvasNumber) != undefined) {
+                pfxStartingFrame.value = localStorage.getItem("bitty.synth.pfxStart" + canvasNumber);
+            }
+            if (localStorage.getItem("bitty.synth.pfxEnd" + canvasNumber) != undefined) {
+                pfxEndingFrame.value = localStorage.getItem("bitty.synth.pfxEnd" + canvasNumber);
+            }
+            if (localStorage.getItem("bitty.synth.pfxEq" + canvasNumber) != undefined) {
+                pfxEquation.value = localStorage.getItem("bitty.synth.pfxEq" + canvasNumber);
+            }
+        }
+
+        function saveFormContents() {
+            localStorage.setItem("bitty.synth.vfxStart" + canvasNumber, vfxStartingFrame.value);
+            localStorage.setItem("bitty.synth.vfxEnd" + canvasNumber, vfxEndingFrame.value);
+            localStorage.setItem("bitty.synth.vfxEq" + canvasNumber, vfxEquation.value);
+            localStorage.setItem("bitty.synth.pfxStart" + canvasNumber, pfxStartingFrame.value);
+            localStorage.setItem("bitty.synth.pfxEnd" + canvasNumber, pfxEndingFrame.value);
+            localStorage.setItem("bitty.synth.pfxEq" + canvasNumber, pfxEquation.value);
+        }
+
+        function refillArrays() {
+            saveFormContents();
+            vFXarray = [];
+            pFXarray = [];
+            // vFX array
+            var vFXstart = parseInt(vfxStartingFrame.value);
+            var vFXend = parseInt(vfxEndingFrame.value);
+            for (var i = vFXstart; i < vFXend; i++) {
+                vFXarray[i] = EvaluateExpression(vfxEquation.value.toUpperCase().replaceAll("X", "" + i));
+            }
+            // pFX array
+            var pFXstart = parseInt(pfxStartingFrame.value);
+            var pFXend = parseInt(pfxEndingFrame.value);
+            for (var i = pFXstart; i < pFXend; i++) {
+                pFXarray[i] = EvaluateExpression(pfxEquation.value.toUpperCase().replaceAll("X", "" + i));
+            }
+            redrawGraph();
+        }
+
+        function redrawGraph() {
+            repaint(vFXarray, ctxGraph);
+            repaint(pFXarray, ctxGraph2);
+        }
+
+        function resizeAll() {
+            ctxGraph.width = main.offsetWidth;
+            ctxGraph.height = 175;
+            ctxGraph.style.width = main.offsetWidth + "";
+            ctxGraph2.width = main.offsetWidth;
+            ctxGraph2.height = 175;
+            ctxGraph2.style.width = main.offsetWidth + "";
+        }
+
+        loadFormContents();
+        resizeAll();
+        redrawGraph();
+        refillArrays();
+
+
+        window.onresize = function() {
+            resizeAll();
+            redrawGraph();
+        }
+
+        function gotoCvs() {
+            var strAdd = "canvas.html?canvasn=" + canvasNumber;
+            location.replace(strAdd);
+        }
+        </script>
+    </body>
+</html>

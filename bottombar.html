@@ -1,0 +1,244 @@
+<html>
+	<head>
+		<!--Import Google Icon Font-->
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--Import materialize.css-->
+		<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+		<style>
+			#leftarrow {
+				background-color: #FFFFFF;
+				transition: background-color 0.2s;
+			}
+
+			#leftarrow:hover {
+				background-color: #C0C0C0;
+			}
+
+			#rightarrow {
+				background-color: #FFFFFF;
+				transition: background-color 0.2s;
+			}
+
+			#rightarrow:hover {
+				background-color: #C0C0C0;
+			}
+		</style>
+	</head>
+	<body style="margin:0px">
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="js/materialize.min.js"></script>
+
+		<div style="height:90%">
+		<table style="width:100%; height:80%;">
+			<!-- Toolbar -->
+			<tr style="width:100%; ">
+				<!-- Canvas Number Box -->
+				<td style="width:60px;">
+					<div id="numberbox" style="width:100%; height:80%; font-family:Arial, Arial, serif; font-size: 64px; background-color: #000000; color:white; ">
+						<center>1</center>
+					</div>
+				</td>
+				<!-- Beats/min and Instrument Selector Inputs -->
+				<td style="width:160px; height:80%;">
+					<div class="input-field col s12" >
+						<select class="browser-default" name="instrument" id="instrument" style="width:100%; " onchange="switchSelectedInstrument(); ">
+							<option value="acoustic_grand_piano">acoustic_grand_piano</option>
+							<option value="accordion">accordion</option>
+							<option value="acoustic_bass">acoustic_bass</option>
+							<option value="acoustic_guitar_nylon">acoustic_guitar_nylon</option>
+							<option value="acoustic_guitar_steel">acoustic_guitar_steel</option>
+							<option value="alto_sax">alto_sax</option>
+							<option value="bagpipe">bagpipe</option>
+							<option value="baritone_sax">baritone_sax</option>
+							<option value="brass_section">brass_section</option>
+							<option value="bright_acoustic_piano">bright_acoustic_piano</option>
+							<option value="church_organ">church_organ</option>
+							<option value="clarinet">clarinet</option>
+							<option value="clavinet">clavinet</option>
+							<option value="distortion_guitar">distortion_guitar</option>
+							<option value="drawbar_organ">drawbar_organ</option>
+							<option value="electric_bass_finger">electric_bass_finger</option>
+							<option value="electric_bass_pick">electric_bass_pick</option>
+							<option value="electric_grand_piano">electric_grand_piano</option>
+							<option value="electric_guitar_clean">electric_guitar_clean</option>
+							<option value="electric_guitar_jazz">electric_guitar_jazz</option>
+							<option value="electric_guitar_muted">electric_guitar_muted</option>
+							<option value="english_horn">english_horn</option>
+							<option value="flute">flute</option>
+							<option value="french_horn">french_horn</option>
+							<option value="fretless_bass">fretless_bass</option>
+							<option value="glockenspiel">glockenspiel</option>
+							<option value="guitar_fret_noise">guitar_fret_noise</option>
+							<option value="guitar_harmonics">guitar_harmonics</option>
+							<option value="harmonica">harmonica</option>
+							<option value="harpsichord">harpsichord</option>
+							<option value="lead_1_square">lead_1_square</option>
+							<option value="lead_2_sawtooth">lead_2_sawtooth</option>
+							<option value="lead_3_calliope">lead_3_calliope</option>
+							<option value="lead_4_chiff">lead_4_chiff</option>
+							<option value="lead_5_charang">lead_5_charang</option>
+							<option value="lead_6_voice">lead_6_voice</option>
+							<option value="lead_7_fifths">lead_7_fifths</option>
+							<option value="lead_8_bass__lead">lead_8_bass__lead</option>
+							<option value="music_box">music_box</option>
+							<option value="orchestral_harp">orchestral_harp</option>
+							<option value="orchestra_hit">orchestra_hit</option>
+							<option value="overdriven_guitar">overdriven_guitar</option>
+							<option value="pad_1_new_age">pad_1_new_age</option>
+							<option value="pad_2_warm">pad_2_warm</option>
+							<option value="pad_3_polysynth">pad_3_polysynth</option>
+							<option value="pad_4_choir">pad_4_choir</option>
+							<option value="pad_5_bowed">pad_5_bowed</option>
+							<option value="pad_6_metallic">pad_6_metallic</option>
+							<option value="pad_7_halo">pad_7_halo</option>
+							<option value="pad_8_sweep">pad_8_sweep</option>
+							<option value="percussive_organ">percussive_organ</option>
+							<option value="recorder">recorder</option>
+							<option value="rock_organ">rock_organ</option>
+							<option value="slap_bass_1">slap_bass_1</option>
+							<option value="slap_bass_2">slap_bass_2</option>
+							<option value="soprano_sax">soprano_sax</option>
+							<option value="steel_drums">steel_drums</option>
+							<option value="string_ensemble_1">string_ensemble_1</option>
+							<option value="string_ensemble_2">string_ensemble_2</option>
+							<option value="synth_bass_1">synth_bass_1</option>
+							<option value="synth_bass_2">synth_bass_2</option>
+							<option value="synth_brass_1">synth_brass_1</option>
+							<option value="synth_brass_2">synth_brass_2</option>
+							<option value="synth_choir">synth_choir</option>
+							<option value="synth_drum">synth_drum</option>
+							<option value="synth_strings_1">synth_strings_1</option>
+							<option value="synth_strings_2">synth_strings_2</option>
+							<option value="tenor_sax">tenor_sax</option>
+							<option value="trombone">trombone</option>
+							<option value="trumpet">trumpet</option>
+							<option value="tuba">tuba</option>
+							<option value="tubular_bells">tubular_bells</option>
+							<option value="viola">viola</option>
+							<option value="violin">violin</option>
+							<option value="whistle">whistle</option>
+							<option value="xylophone">xylophone</option>
+						</select>
+
+					</div>
+
+				</td>
+				<td style="width:60px">
+					<div class="input-field col s12" >
+						<input type="text" name="bpm" id="bpm" value="128" style="width:100%; " onchange="setBPM(); "/>
+						<label>bpm</label>
+					</div>
+				</td>
+				<!-- Seek -->
+				<td>
+					<iframe style="width:100%; height:70%; border:0px;" id="seekFrame">
+						Error Loading Seek
+					</iframe>
+				</td>
+			</tr>
+		</table>
+		</div>
+
+		<script>
+			$(document).ready(function() {
+		    	$('select').material_select();
+		  	});
+
+			// Get the Canvas Number from URL information
+
+			// val: the property p in "canvas.html?p=x"
+			function parseURL(val) {
+				var result = "Invalid Input Parameters",
+					tmp = [];
+				var items = location.search.substr(1).split("&");
+				for (var index = 0; index < items.length; index++) {
+					tmp = items[index].split("=");
+					if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
+				}
+				return result;
+			}
+
+			// The canvas number is determined by the "?canvasn=value" in the URL
+			var canvasNumber = parseURL("canvasn");
+
+			// Set up interface according to canvasNumber
+			var NBox = document.getElementById("numberbox");
+			NBox.innerHTML = "<center>" + canvasNumber + "</center>";
+			switch (parseInt(canvasNumber)){
+				case 1:
+					NBox.style.backgroundColor = "#00FFFF";
+					break;
+				case 2:
+					NBox.style.backgroundColor = "#7FFF00";
+					break;
+				case 3:
+					NBox.style.backgroundColor = "#DC143C";
+					break;
+				case 4:
+					NBox.style.backgroundColor = "#FF8C00";
+					break;
+				case 5:
+					NBox.style.backgroundColor = "#483D8B";
+					break;
+			}
+
+			// Procedurally generate the seek according to the canvas count.
+			var color1; 			// lightest color
+			var color2; 			// ligher color
+			var selectioncolor; 	// color corresponding to the canvas
+
+			// Define the colors
+			switch (parseInt(canvasNumber)){
+				case 1:
+					selectioncolor = "#00FFFF";
+					color2 = "#C4FFFF"
+					color1 = "#EAFFFF"
+					break;
+				case 2:
+					selectioncolor = "#7FFF00";
+					color2 = "#CAFF96";
+					color1 = "#EEFFDD";
+					break;
+				case 3:
+					selectioncolor = "#DC143C";
+					color2 = "#D899A7";
+					color1 = "#D6CFD1";
+					break;
+				case 4:
+					selectioncolor = "#FF8C00";
+					color2 = "#FFC889";
+					color1 = "#FFF4E8";
+					break;
+				case 5:
+					selectioncolor = "#483D8B";
+					color2 = "#B4AAFF";
+					color1 = "#E8E5FF";
+					break;
+			}
+
+			// Set up the seekFrame
+			var sFrm = document.getElementById("seekFrame");
+			sFrm.src = "seek.html?canvasn=" + canvasNumber;
+
+			document.getElementById("instrument").value = localStorage.getItem("bitty.synth.selectedInstrument" + canvasNumber);
+
+			// Handle Combo Box
+			function switchSelectedInstrument() {
+				localStorage.setItem("bitty.synth.selectedInstrument" + canvasNumber, document.getElementById("instrument").value);
+			}
+
+			function getBPM(){
+				var b = localStorage.getItem("bitty.synth.bpm" + canvasNumber);
+				if (b == null || b == "null") b = 128;
+				return b;
+			}
+
+			function setBPM(){
+				localStorage.setItem("bitty.synth.bpm" + canvasNumber, document.getElementById("bpm").value)
+			}
+
+			document.getElementById("bpm").value = getBPM();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,26 @@
+<html>
+	<body>
+		<script src="multithread.js"></script>
+
+		<script>
+			var num_threads = 2;
+			var MT = new Multithread(num_threads);
+
+			var myAsynchronousFunction = MT.process(
+				/* This is the function to be executed on a separate thread */
+				function (PassedArg) {
+					// Access localstorage in this manner
+					return "test " + PassedArg["bitty.synth.1.0"]; 	
+				}, 
+				/* This is the function called back when the function returns */ 
+				function (returnValue) {
+					console.log(returnValue); 
+				}
+			);
+
+			// This fires the function on another thread. 
+			// Localstorage can be passed as an argument. 
+			myAsynchronousFunction(localStorage); 
+		</script>
+	</body>
+</html>

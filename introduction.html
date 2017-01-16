@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--Import Google Icon Font-->
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--Import materialize.css-->
+		<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+		<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+		<title>bitty.synth</title>
+
+		<style>
+			@font-face {
+				font-family: Monofur;
+				src: url('fonts/mf.ttf');
+			}
+
+			.cube {
+			-webkit-transform: translate3d(0, 0, 0);
+			-moz-transform: translate3d(0, 0, 0);
+			-ms-transform: translate3d(0, 0, 0);
+			transform: translate3d(0, 0, 0);
+			/* Other transform properties here */
+			}
+		</style>
+	</head>
+	<body style="overflow:hidden">
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="js/materialize.min.js"></script>
+
+		<div class="slider fullscreen" style="background-color:white">
+			<ul class="slides" style="background-color:white">
+				<li>
+					<img src="images/intro1.png">
+					<div class="caption center-align">
+						<h4 class="black-text" style="font-family: Monofur">Create sounds with bitty.synth</h4>
+					</div>
+				</li>
+				<li>
+					<img src="images/intro2.png">
+					<div class="caption bottom center-align" style="bottom:60px; ">
+						<h4 class="black-text" style="font-family: Monofur"><br/><br/><br/><br/><br/><br/><br/><br/>Get started quick with help</h4>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<div style="position:absolute; left:10px; top:10px; z-index:1000">
+			<a class="waves-effect waves-light btn" onclick="window.location='index.html'; ">Close Introduction</a>
+		</div>
+
+		<script>
+			$(document).ready(function(){
+			$('.slider').slider({full_width: true});
+			});
+
+			localStorage.setItem("com.kaellel.bitty.synth.introShown", true);
+		</script>
+	</body>
+</html>

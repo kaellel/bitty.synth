@@ -1,0 +1,104 @@
+<html>
+	<body>
+		<textarea id="text" style="width:100%; height:100%">
+		</textarea>
+		<script>
+			// val: the property p in "canvas.html?p=x"
+			function parseURL(val) {
+				var result = "Not Found",
+					tmp = [];
+				var items = location.search.substr(1).split("&");
+				for (var index = 0; index < items.length; index++) {
+					tmp = items[index].split("=");
+					if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
+				}
+				return result;
+			}
+
+			// The canvas number is determined by the "?canvasn=value" in the URL
+			var canvasNumber = parseURL("canvasn");
+
+			// Procedurally generate the seek according to the canvas count.
+			var color1; 			// lightest color
+			var color2; 			// ligher color
+			var selectioncolor; 	// color corresponding to the canvas
+
+			// Adjust the colors first
+			switch (parseInt(canvasNumber)){
+				case 1:
+					selectioncolor = "#00FFFF";
+					color2 = "#C4FFFF"
+					color1 = "#EAFFFF"
+					break;
+				case 2:
+					selectioncolor = "#7FFF00";
+					color2 = "#CAFF96";
+					color1 = "#EEFFDD";
+					break;
+				case 3:
+					selectioncolor = "#DC143C";
+					color2 = "#D899A7";
+					color1 = "#D6CFD1";
+					break;
+				case 4:
+					selectioncolor = "#FF8C00";
+					color2 = "#FFC889";
+					color1 = "#FFF4E8";
+					break;
+				case 5:
+					selectioncolor = "#483D8B";
+					color2 = "#B4AAFF";
+					color1 = "#E8E5FF";
+					break;
+				default:
+					selectioncolor = "#808080";
+					color2 = "#B5B5B5";
+					color1 = "#D3D3D3";
+					break;
+			}
+
+			function indexToTimeString(i){
+				var minuteCount = parseInt(i / 60);
+				var secondCount = parseInt(i) - minuteCount * 60;
+				var returnString = "";
+				returnString += "0" + minuteCount + ":";
+				var secondString;
+				if (secondCount > 9)
+					secondString = "" + secondCount;
+				else
+					secondString = "0" + secondCount;
+				returnString += secondString;
+				return returnString;
+			}
+
+			// Append seek div elements, each with their color.
+
+			var outString = "";
+			var tString = "";
+			var col;
+
+			document.write("<style> div.ska {transition: background-color 0.15s; background-color: " + color1 + ";} div.ska:hover {background-color: #0094FF;}</style>");
+			document.write("<style> div.skb {transition: background-color 0.15s; background-color: " + color2 + ";} div.skb:hover {background-color: #0094FF;}</style>");
+			document.write("<style> div.centerelement {position: relative;top: 50%; transform: translateY(-50%);} </style>")
+			document.write("<style> div.cvstimeline {background-image:url(images/bgdots.png); background-repeat:repeat; transition: background-color 0.15s; background-color: " + selectioncolor + "} div.cvstimeline:hover {background-color: #0094FF; } </style>");
+
+			var i;
+			for (i = 0; i < 2000; i++){
+				var divString;
+				if (i % 2 == 0) {
+					col = color1;
+					divString = "<div id='seek" + i + "' class='ska' style='position: absolute; width: 16px; height: 100%; left: " + (i * 16) +"px;' onclick='changeSelectedFrameIndex(" + i + ")'></div>"
+
+				} else {
+					col = color2;
+					divString = "<div id='seek" + i + "' class='skb' style='position: absolute; width: 16px; height: 100%; left: " + (i * 16) +"px;' onclick='changeSelectedFrameIndex(" + i + ")'></div>"
+				}
+				outString += divString;
+			}
+
+			text.value = outString;
+
+
+		</script>
+	</body>
+</html>

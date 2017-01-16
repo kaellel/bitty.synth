@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+
+		<!--Import Google Icon Font-->
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--Import materialize.css-->
+		<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+		<title>Itty Bitty Ditty Library Browser</title>
+
+		<style>
+			.tabs .tab a{
+			color:#00ACC1;
+			}
+			.tabs .tab a:hover,.tabs .tab a.active {
+			background-color:transparent;
+			color:#008B9B;
+			}
+			.tabs .tab.disabled a,.tabs .tab.disabled a:hover {
+			color:rgba(102,147,153,0.7);	
+			}
+			.tabs .indicator {
+			background-color:#009BAD;
+			}
+		</style>
+	</head>
+	<body style="overflow:hidden">
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="js/materialize.min.js"></script>
+		
+		<div id="TopBar">
+			<div class="row">
+				<div class="col s12">
+					<ul class="tabs">
+						<li class="tab col s3"><a class="active" href="#" onclick="ctxFrame.src='librarybrowser_concurrentlibrary.html'; ">Concurrent Library</a></li>
+						<li class="tab col s3"><a href="#" onclick="ctxFrame.src='librarybrowser_patternlibrary.html'; ">Pattern Library</a></li>
+					</ul>
+				</div>			
+			</div>
+		</div>
+		
+		<iframe id="ctxFrame" src="librarybrowser_concurrentlibrary.html" style="width:100%; border:0px; ">
+		</iframe>
+		
+		<script>
+			$(document).ready(function(){
+				$('ul.tabs').tabs();
+			});
+			
+			function resizeFrame() {
+				ctxFrame.width = window.innerWidth + "px"; 
+				ctxFrame.height = (window.innerHeight - 72) + "px"; 
+			}
+			
+			resizeFrame(); 
+			
+			window.onresize = function () {
+				resizeFrame();
+			}
+		</script>
+	</body>
+</html>

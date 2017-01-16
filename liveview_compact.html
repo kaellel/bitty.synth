@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	</head>
+	<body style="overflow:hidden; margin:0px">
+		<!-- 2 elements in the compact live view -->
+		<!-- Canvas keyboard -->
+		<iframe id="cvsF" style="position:fixed; border:0px; " src="liveview_canvaskeyboard.html"></iframe>
+
+		<!-- Ext keyboard -->
+		<iframe id="extF" style="position:fixed; border:0px;" src="liveview_externalkeyboard.html"></iframe>
+
+		<script>
+		function resize(){
+			if (window.innerWidth > window.innerHeight) {
+				document.getElementById("cvsF").style.left = "0px"; 
+				document.getElementById("cvsF").style.top = "0px"; 
+				document.getElementById("cvsF").style.width = window.innerWidth / 2 + "px"; 
+				document.getElementById("cvsF").style.height = window.innerHeight + "px"; 
+				
+				document.getElementById("extF").style.left = window.innerWidth / 2 + "px"; 
+				document.getElementById("extF").style.top = "0px"; 
+				document.getElementById("extF").style.width = window.innerWidth / 2 + "px"; 
+				document.getElementById("extF").style.height = window.innerHeight + "px"; 
+			} else {
+				document.getElementById("cvsF").style.left = "0px"; 
+				document.getElementById("cvsF").style.top = "0px"; 
+				document.getElementById("cvsF").style.width = window.innerWidth + "px"; 
+				document.getElementById("cvsF").style.height = window.innerHeight * 0.70 + "px"; 
+				
+				document.getElementById("extF").style.left = "0px"; 
+				document.getElementById("extF").style.top = window.innerHeight * 0.70 + "px"; 
+				document.getElementById("extF").style.width = window.innerWidth + "px"; 
+				document.getElementById("extF").style.height = window.innerHeight * 0.30 + "px"; 
+			}
+		}
+		
+		resize(); 
+		
+		window.onresize = function () {resize(); }; 
+		</script>
+	</body>
+</html>

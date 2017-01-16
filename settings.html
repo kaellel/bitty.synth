@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--Import Google Icon Font-->
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--Import materialize.css-->
+		<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	</head>
+	<body style="background-repeat:repeat; background-image:url(images/stripes.gif); ">
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="js/materialize.min.js"></script>
+
+		<div class="container">
+			<div class="row" style="">
+				<!-- General Settings Card -->
+				<div class="col s12 m6">
+					<div class="card horizontal hoverable small">
+						<div class="card-stacked">
+							<div class="card-content">
+								<span class="card-title grey-text text-darken-4">General</span>
+								<!-- User Information -->
+								<div class="input-field col s12">
+									<input placeholder="Name" id="txtName" type="text" class="validate">
+									<label for="txtName">Your Name</label>
+								</div>
+								<!-- Prompt Before New -->
+								<p>
+									<input type="checkbox" class="filled-in" id="chkPromptNew" checked="checked" />
+									<label for="chkPromptNew">Ask before creating a new file</label>
+								</p>
+								<br />
+								<!-- Multithreaded playback -->
+								<p>
+									<input type="checkbox" class="filled-in" id="chkMultithreadPlayback"  checked="checked"/>
+									<label for="chkMultithreadPlayback">Use multithreaded playback (disable for desktop versions)</label>
+								</p>
+								<br />
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Appearance Settings Card -->
+				<div class="col s12 m6" style="">
+					<div class="card horizontal hoverable small">
+						<div class="card-stacked">
+							<div class="card-content">
+								<span class="card-title grey-text text-darken-4">Appearance</span>
+								<!-- Graphics Quality Selector -->
+								<div class="input-field col s12" >
+									<select id="cboGraphicsQuality">
+										<option value="1">Render 100% Screen Resolution</option>
+										<option value="2">Render 50% Screen Resolution</option>
+										<option value="3">Render 25% Screen Resolution</option>
+									</select>
+									<label>Graphics Quality</label>
+								</div>
+								<!-- Show FPS -->
+								<p>
+									<input type="checkbox" class="filled-in" id="chkShowFPS"/>
+									<label for="chkShowFPS">Show frames per second counter in canvas view</label>
+								</p>
+								<br />
+								<!-- Use FPS -->
+								<p>
+									<input type="checkbox" class="filled-in" id="chkUseFPS" checked="checked" />
+									<label for="chkUseFPS">Use frames per second counter to smooth animations</label>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Canvas Shadows Settings Card -->
+				<div class="col s12 m6" style="">
+					<div class="card horizontal hoverable large">
+						<div class="card-stacked">
+							<div class="card-content">
+								<span class="card-title grey-text text-darken-4">Canvas Hints</span>
+								<br />
+								<!-- Show Shadow for Previous Frame -->
+								<p>
+									<input type="checkbox" class="filled-in" id="chkShowShadowPrevious" checked="checked"/>
+									<label for="chkShowShadowPrevious">Show shadow for previous frame's contents</label>
+								</p>
+								<br />
+								<!-- Show Shadow for Prediction -->
+								<p>
+									<input type="checkbox" class="filled-in" id="chkShowShadowPrediction" checked="checked"/>
+									<label for="chkShowShadowPrediction">Show shadow for hint points</label>
+								</p>
+								<br />
+								<!-- Prediction Sequence Length -->
+								<div class="input-field col s12">
+									<select name="txtPredictionSequenceLength" id="txtPredictionSequenceLength" style="width:100%; ">
+										<option value="0">0 - Disable pattern based hints</option>
+										<option value="2">2</option>
+										<option value="4">4</option>
+										<option value="10">10</option>
+									</select>
+									<label>Pattern Hint Sequence Length</label>
+								</div>
+								<!-- Prediction Mode -->
+								<div class="input-field col s12" >
+									<select name="predictionmode" id="predictionmode" style="width:100%; ">
+										<option value="0">Discrete</option>
+										<option value="1">Probabilistic</option>
+									</select>
+									<label>Hint Lookup Mode</label>
+								</div>
+								<!-- Prediction Count -->
+								<div class="input-field col s12">
+									<input placeholder="4" id="txtPredictionCount" type="text" class="validate" value="4">
+									<label for="txtPredictionCount">Hint Note Count</label>
+								</div>
+								<!-- Prediction Library -->
+								<div class="input-field col s12" >
+									<select name="predictionlibrary" id="predictionlibrary" style="width:100%; ">
+										<option value="1">Classical</option>
+										<option value="2">Rock</option>
+										<option value="3">Pop/Electronic</option>
+										<option value="4">Jazz</option>
+									</select>
+									<label>Hint Library</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Live View Settings Card -->
+				<div class="col s12 m6">
+					<div class="card horizontal hoverable small">
+						<div class="card-stacked">
+							<div class="card-content">
+								<span class="card-title grey-text text-darken-4">Live View</span>
+								<br />
+								<!-- Show Mini Keyboard -->
+								<p>
+									<input type="checkbox" class="filled-in" id="chkShowMiniKeyboard" checked="checked"/>
+									<label for="chkShowMiniKeyboard">Show miniature keyboard</label>
+								</p>
+								<br />
+								<!-- Live View Keyboard Instrument -->
+								<label>Liveview Keyboard Instrument</label>
+								<select class="browser-default" name="instrument" id="instrument" style="width:100%; " onchange="switchSelectedInstrument(); ">
+									<option value="acoustic_grand_piano">acoustic_grand_piano</option>
+									<option value="accordion">accordion</option>
+									<option value="acoustic_bass">acoustic_bass</option>
+									<option value="acoustic_guitar_nylon">acoustic_guitar_nylon</option>
+									<option value="acoustic_guitar_steel">acoustic_guitar_steel</option>
+									<option value="alto_sax">alto_sax</option>
+									<option value="bagpipe">bagpipe</option>
+									<option value="baritone_sax">baritone_sax</option>
+									<option value="brass_section">brass_section</option>
+									<option value="bright_acoustic_piano">bright_acoustic_piano</option>
+									<option value="church_organ">church_organ</option>
+									<option value="clarinet">clarinet</option>
+									<option value="clavinet">clavinet</option>
+									<option value="distortion_guitar">distortion_guitar</option>
+									<option value="drawbar_organ">drawbar_organ</option>
+									<option value="electric_bass_finger">electric_bass_finger</option>
+									<option value="electric_bass_pick">electric_bass_pick</option>
+									<option value="electric_grand_piano">electric_grand_piano</option>
+									<option value="electric_guitar_clean">electric_guitar_clean</option>
+									<option value="electric_guitar_jazz">electric_guitar_jazz</option>
+									<option value="electric_guitar_muted">electric_guitar_muted</option>
+									<option value="english_horn">english_horn</option>
+									<option value="flute">flute</option>
+									<option value="french_horn">french_horn</option>
+									<option value="fretless_bass">fretless_bass</option>
+									<option value="glockenspiel">glockenspiel</option>
+									<option value="guitar_fret_noise">guitar_fret_noise</option>
+									<option value="guitar_harmonics">guitar_harmonics</option>
+									<option value="harmonica">harmonica</option>
+									<option value="harpsichord">harpsichord</option>
+									<option value="lead_1_square">lead_1_square</option>
+									<option value="lead_2_sawtooth">lead_2_sawtooth</option>
+									<option value="lead_3_calliope">lead_3_calliope</option>
+									<option value="lead_4_chiff">lead_4_chiff</option>
+									<option value="lead_5_charang">lead_5_charang</option>
+									<option value="lead_6_voice">lead_6_voice</option>
+									<option value="lead_7_fifths">lead_7_fifths</option>
+									<option value="lead_8_bass__lead">lead_8_bass__lead</option>
+									<option value="music_box">music_box</option>
+									<option value="orchestral_harp">orchestral_harp</option>
+									<option value="orchestra_hit">orchestra_hit</option>
+									<option value="overdriven_guitar">overdriven_guitar</option>
+									<option value="pad_1_new_age">pad_1_new_age</option>
+									<option value="pad_2_warm">pad_2_warm</option>
+									<option value="pad_3_polysynth">pad_3_polysynth</option>
+									<option value="pad_4_choir">pad_4_choir</option>
+									<option value="pad_5_bowed">pad_5_bowed</option>
+									<option value="pad_6_metallic">pad_6_metallic</option>
+									<option value="pad_7_halo">pad_7_halo</option>
+									<option value="pad_8_sweep">pad_8_sweep</option>
+									<option value="percussive_organ">percussive_organ</option>
+									<option value="recorder">recorder</option>
+									<option value="rock_organ">rock_organ</option>
+									<option value="slap_bass_1">slap_bass_1</option>
+									<option value="slap_bass_2">slap_bass_2</option>
+									<option value="soprano_sax">soprano_sax</option>
+									<option value="steel_drums">steel_drums</option>
+									<option value="string_ensemble_1">string_ensemble_1</option>
+									<option value="string_ensemble_2">string_ensemble_2</option>
+									<option value="synth_bass_1">synth_bass_1</option>
+									<option value="synth_bass_2">synth_bass_2</option>
+									<option value="synth_brass_1">synth_brass_1</option>
+									<option value="synth_brass_2">synth_brass_2</option>
+									<option value="synth_choir">synth_choir</option>
+									<option value="synth_drum">synth_drum</option>
+									<option value="synth_strings_1">synth_strings_1</option>
+									<option value="synth_strings_2">synth_strings_2</option>
+									<option value="tenor_sax">tenor_sax</option>
+									<option value="trombone">trombone</option>
+									<option value="trumpet">trumpet</option>
+									<option value="tuba">tuba</option>
+									<option value="tubular_bells">tubular_bells</option>
+									<option value="viola">viola</option>
+									<option value="violin">violin</option>
+									<option value="whistle">whistle</option>
+									<option value="xylophone">xylophone</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<script src="js/preferences.js"></script>
+
+		<script>
+			$(document).ready(function() {
+				$('select').material_select();
+			});
+		</script>
+	</body>
+</html>

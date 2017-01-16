@@ -1,0 +1,44 @@
+<html>
+    <body>
+
+        <!-- Below is the WebWorker segment of the timer. -->
+        <script id="timerScript">
+        Function.prototype.interval = function (ms) {
+            var func = this;
+            function interval() {
+                var obj = this, args = arguments, nextInterval=now()+ms;
+                func.apply(obj, args);
+                setTimeout(function(){interval.apply(obj, args);},nextInterval-now());
+            }
+            return interval;
+        }
+
+        function now(){return (new Date()).getTime()};
+        var interval=500, //5-second interval (in millis)
+            start=now(); //set our start time
+        (function(){
+            var elapsed=now()-start;
+            self.postMessage(elapsed);
+        }.interval(interval)())
+        </script>
+
+        <!-- Below is the main program segment. -->
+        <script>
+        function initTimer() {
+            var workerData = new Blob([document.getElementById('timerScript').textContent], {
+                type: "text/javascript"
+            });
+
+            var worker = new Worker(window.URL.createObjectURL(workerData));//create a web worker with a script containing our new timer code
+            worker.addEventListener('message', function(event) {//listen for messages from the worker
+                if(!event.data)return;//ignore that initial execution to kick off the timer for the sake of consistency
+                console.log(event.data);
+            }, false);
+            worker.postMessage(""); // start the worker.
+        }
+
+        initTimer(); 
+        </script>
+
+    </body>
+</html>

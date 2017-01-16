@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--Import Google Icon Font-->
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--Import materialize.css-->
+		<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	</head>
+	<!--  -->
+	<body style="background-repeat:repeat; background-image:url(images/stripes.gif); ">
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="js/materialize.min.js"></script>
+		<script type="text/javascript" src="js/clipboard.min.js"></script>
+
+		<div class="container">
+			<div class="row" style="">
+				<!-- Quick Actions Card -->
+				<div class="col s12 m6" style="">
+					<div class="card hoverable">
+						<div class="card-stacked">
+							<div class="card-image">
+								<iframe src="stacked_stuff/stacks_alt.html" style="width:100%; border:0px; height:350px; "></iframe>
+								<span class="card-title">Actions</span>
+							</div>
+
+							<div class="card-content">
+								<p> Quickly load the saved sound, or clear the saved sound while creating and loading a new sound.  </p>
+							</div>
+							<div class="card-action">
+								<a href="#" onclick="openModal()">Clear and Recreate</a>
+							</div>
+							<div class="card-action">
+								<a href="liveview.html">Jump to Live View</a>
+								<a href="timelineview.html">Jump to Timeline View</a>
+							</div>
+							<div class="card-action">
+								<a href="#" onclick="openSampleModal(); ">Open Sample</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col s12 m6" style="">
+					<div class="card hoverable">
+						<div class="card-stacked">
+							<div class="card-content">
+								<span class="card-title">Help</span>
+								<p> Check out the help topics, or get information on bitty.synth. </p>
+							</div>
+							<div class="card-action">
+								<a href="#" onclick="window.location='help.html'">Help Topics</a>
+								<a href="info.html">Info</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col s12 m6" style="">
+					<div class="card hoverable">
+						<div class="card-stacked">
+							<div class="card-content">
+								<span class="card-title">Hub</span>
+								<p> Share your sounds with other people online, and help bitty.synth grow by spreading the word. </p>
+							</div>
+							<div class="card-action">
+								<a href="#" onclick="openExportModal(); ">Share Sounds</a>
+								<a href="#" onclick="openImportModal(); ">Import Sounds</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal For Clear and Create -->
+		<div id="modal1" class="modal">
+			<div class="modal-content">
+				<b>Clear and Recreate</b>
+				<p>This action will clear all saved canvas information and all saved settings. Proceed? </p>
+			</div>
+			<div class="modal-footer">
+				<a href="#" onclick="clearAndCreate()" class=" modal-action modal-close waves-effect waves-green btn-flat">Clear and Create</a>
+				<a href="#" onclick="closeModal()" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+			</div>
+		</div>
+
+		<!-- Modal For Import String-->
+		<div id="modal2" class="modal">
+			<div class="modal-content">
+				<b>Import Song</b>
+				<p>
+					Importing a sound will overwrite any saved bitty.synth sounds.
+				</p>
+				<br />
+				<div class="input-field col s12">
+					<input placeholder="bittysynth://" id="txtSongString" type="text" class="validate">
+					<label for="txtSongString">Source</label>
+				</div>
+				<a class="btn waves-effect" onclick="Materialize.toast('To paste, use Ctrl+V on desktop platforms or long press the text field on mobile platforms. ', 4000);">Paste from Clipboard</a>
+			</div>
+			<div class="modal-footer">
+				<a href="#" onclick="newImportSongString(); " class=" modal-action modal-close waves-effect waves-green btn-flat">Import</a>
+				<a href="#" onclick="closeImportModal(); " class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+			</div>
+		</div>
+
+		<!-- Modal For Export String-->
+		<div id="modal3" class="modal">
+			<div class="modal-content">
+				<b>Share Sound</b>
+				<p>
+					Export the saved bitty.synth sound and share. Copy the generated string and paste into "Import Sounds" to share.
+				</p>
+				<br />
+				<div class="input-field col s12">
+					<input placeholder="bittysynth://" id="txtGenSongString" type="text" class="validate">
+					<label for="txtGenSongString">Generated String</label>
+				</div>
+				<a id="cpyBtn" onclick="Materialize.toast('Content copied. ', 2000); " class="btn waves-effect" data-clipboard-action="copy" data-clipboard-target="#txtGenSongString">Copy to Clipboard</a>
+			</div>
+			<div class="modal-footer">
+				<a href="#" onclick="closeExportModal(); " class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+			</div>
+		</div>
+
+		<!-- Modal For Load Sample -->
+		<div id="modal4" class="modal">
+			<div class="modal-content">
+				<b>Import Sample</b>
+				<p>
+					Select a sample sound to import.
+					Importing a sample will overwrite any saved bitty.synth sounds.
+				</p>
+				<br />
+				<div>
+					<!-- Sample list.  -->
+					<ul class="collection">
+						<!-- List item 
+						<a href="#!" class="collection-item" onclick="loadSample(0); "><li class="collection-item avatar">
+							<i class="material-icons circle red">library_music</i>
+							<span class="title" style="color:black">Have Yourself a Merry Little Christmas</span>
+							<p style="color:darkgray; ">
+								A classic Christmas song. <br />
+								<i>Originally by Hugh Martin and Ralph Blane</i>
+							</p>
+						</li></a>
+						-->
+						<!-- List item
+						<a href="#!" class="collection-item" onclick="loadSample(1); "><li class="collection-item avatar">
+							<i class="material-icons circle red">library_music</i>
+							<span class="title" style="color:black">Photograph</span>
+							<p style="color:darkgray; ">
+								The hit song from 2014. <br />
+								<i>Originally by Ed Sheeran</i>
+							</p>
+						</li></a>
+						-->
+						<!-- List item -->
+						<a href="#!" class="collection-item" onclick="loadSample(2); "><li class="collection-item avatar">
+							<i class="material-icons circle red">library_music</i>
+							<span class="title" style="color:black">Moonlight</span>
+							<p style="color:darkgray; ">
+								Also known as Piano Sonata No. 14 in C# Minor Quasi una fantasia. <br />
+								<i>By Ludwig van Beethoven</i>
+							</p>
+						</li></a>
+						<!-- List item -->
+						<a href="#!" class="collection-item" onclick="loadSample(3); "><li class="collection-item avatar">
+							<i class="material-icons circle red">library_music</i>
+							<span class="title" style="color:black">Fur Elise</span>
+							<p style="color:darkgray; ">
+								Also known as Bagatelle No. 25 in A minor. <br />
+								<i>By Ludwig van Beethoven</i>
+							</p>
+						</li></a>
+						<!-- List item -->
+						<a href="#!" class="collection-item" onclick="loadSample(4); "><li class="collection-item avatar">
+							<i class="material-icons circle red">library_music</i>
+							<span class="title" style="color:black">Prelude Op. 28 No. 4</span>
+							<p style="color:darkgray; ">
+								A classical music song associated with loss and despair. <br />
+								<i>By Frederic Chopin</i>
+							</p>
+						</li></a>
+						<!-- List item
+						<a href="#!" class="collection-item" onclick="loadSample(5); "><li class="collection-item avatar">
+							<i class="material-icons circle red">library_music</i>
+							<span class="title" style="color:black">Let it Go</span>
+							<p style="color:darkgray; ">
+								A hit song from the Disney movie Frozen.  <br />
+								<i>Originally by Kristen Anderson-Lopez and Robert Lopez</i>
+							</p>
+						</li></a>
+						-->
+					</ul>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a href="#" onclick="closeSampleModal(); " class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+			</div>
+		</div>
+
+		<script src="js/preferences.js"></script>
+
+		<script src="js/samples.js"></script>
+
+		<script>
+
+
+
+		$(document).ready(function(){
+			// Initialize Modal
+			$('.modal-trigger').leanModal();
+		});
+
+
+		function openModal(){
+			if (loadBooleanPreference(SETTINGS_PROMPT_NEW))
+				$('#modal1').openModal();
+			else {
+				localStorage.clear();
+				window.location = "canvas.html?canvasn=1";
+			}
+		}
+
+		function closeModal(){
+			$('#modal1').closeModal();
+		}
+
+		function openImportModal(){
+			$('#modal2').openModal();
+		}
+
+		function closeImportModal(){
+			$('#modal2').closeModal();
+		}
+
+		function openExportModal(){
+			$('#modal3').openModal();
+		}
+
+		function closeExportModal(){
+			$('#modal3').closeModal();
+		}
+
+		function openSampleModal(){
+			$('#modal4').openModal();
+		}
+
+		function closeSampleModal(){
+			$('#modal4').closeModal();
+		}
+
+		function clearAndCreate() {
+			closeModal();
+			localStorage.clear();
+			window.location = "canvas.html?canvasn=1";
+		}
+
+		// Script to generate share String
+		// String Format:
+		// 	tml1Contents,tml1Contents...tml1Contents;tml2Contents...;...;tmlEXT3Contents;^<canvas1contents>^...^<canvas5contents>^<canvasdefinitions>^"ext1"^"ext2"^"ext3"^
+		// 	<canvasNcontents> in the form of <framenumber>-{framecontents};<framenumber>-{framecontents}
+		// 	<canvasdefinitions> in the form of bpm1;ins1;bpm2;ins2;...;bpm5;ins5;
+		function generateSongString(){
+			var SongString = "";
+			// Save timeline.
+			SongString += localStorage.getItem("bitty.synth.timelinecvs1") + ";";
+			SongString += localStorage.getItem("bitty.synth.timelinecvs2") + ";";
+			SongString += localStorage.getItem("bitty.synth.timelinecvs3") + ";";
+			SongString += localStorage.getItem("bitty.synth.timelinecvs4") + ";";
+			SongString += localStorage.getItem("bitty.synth.timelinecvs5") + ";";
+			SongString += localStorage.getItem("bitty.synth.timelinecvsext1") + ";";
+			SongString += localStorage.getItem("bitty.synth.timelinecvsext2") + ";";
+			SongString += localStorage.getItem("bitty.synth.timelinecvsext3") + ";^";
+
+			// Save canvas 1.
+			for (var i = 0; i < 2000; i++) {
+				if (localStorage.getItem("bitty.synth." + 1 + "." + i)!=undefined && localStorage.getItem("bitty.synth." + 1 + "." + i)!="" && localStorage.getItem("bitty.synth." + 1 + "." + i)!=null && localStorage.getItem("bitty.synth." + 1 + "." + i)!="" && localStorage.getItem("bitty.synth." + 1 + "." + i)!="{}") {
+					SongString += i + "-" + localStorage.getItem("bitty.synth." + 1 + "." + i) + ";";
+				}
+			}
+			SongString += "^";
+
+			// Save canvas 2.
+			for (var i = 0; i < 2000; i++) {
+				if (localStorage.getItem("bitty.synth." + 2 + "." + i)!=undefined && localStorage.getItem("bitty.synth." + 2 + "." + i)!="" && localStorage.getItem("bitty.synth." + 2 + "." + i)!=null && localStorage.getItem("bitty.synth." + 2 + "." + i)!="" && localStorage.getItem("bitty.synth." + 2 + "." + i)!="{}") {
+					SongString += i + "-" + localStorage.getItem("bitty.synth." + 2 + "." + i) + ";";
+				}
+			}
+			SongString += "^";
+
+			// Save canvas 3.
+			for (var i = 0; i < 2000; i++) {
+				if (localStorage.getItem("bitty.synth." + 3 + "." + i)!=undefined && localStorage.getItem("bitty.synth." + 3 + "." + i)!="" && localStorage.getItem("bitty.synth." + 3 + "." + i)!=null && localStorage.getItem("bitty.synth." + 3 + "." + i)!="" && localStorage.getItem("bitty.synth." + 3 + "." + i)!="{}") {
+					SongString += i + "-" + localStorage.getItem("bitty.synth." + 3 + "." + i) + ";";
+				}
+			}
+			SongString += "^";
+
+			// Save canvas 4.
+			for (var i = 0; i < 2000; i++) {
+				if (localStorage.getItem("bitty.synth." + 4 + "." + i)!=undefined && localStorage.getItem("bitty.synth." + 4 + "." + i)!="" && localStorage.getItem("bitty.synth." + 4 + "." + i)!=null && localStorage.getItem("bitty.synth." + 4 + "." + i)!="" && localStorage.getItem("bitty.synth." + 4 + "." + i)!="{}") {
+					SongString += i + "-" + localStorage.getItem("bitty.synth." + 4 + "." + i) + ";";
+				}
+			}
+			SongString += "^";
+
+			// Save canvas 5.
+			for (var i = 0; i < 2000; i++) {
+				if (localStorage.getItem("bitty.synth." + 5 + "." + i)!=undefined && localStorage.getItem("bitty.synth." + 5 + "." + i)!="" && localStorage.getItem("bitty.synth." + 5 + "." + i)!=null && localStorage.getItem("bitty.synth." + 5 + "." + i)!="" && localStorage.getItem("bitty.synth." + 5 + "." + i)!="{}") {
+					SongString += i + "-" + localStorage.getItem("bitty.synth." + 5 + "." + i) + ";";
+				}
+			}
+			SongString += "^";
+
+			// Canvas definitions.
+			SongString += localStorage.getItem("bitty.synth.bpm1") + ";" + localStorage.getItem("bitty.synth.selectedInstrument1") + ";";
+			SongString += localStorage.getItem("bitty.synth.bpm2") + ";" + localStorage.getItem("bitty.synth.selectedInstrument2") + ";";
+			SongString += localStorage.getItem("bitty.synth.bpm3") + ";" + localStorage.getItem("bitty.synth.selectedInstrument3") + ";";
+			SongString += localStorage.getItem("bitty.synth.bpm6") + ";" + localStorage.getItem("bitty.synth.selectedInstrument4") + ";";
+			SongString += localStorage.getItem("bitty.synth.bpm5") + ";" + localStorage.getItem("bitty.synth.selectedInstrument5") + ";";
+			SongString += "^";
+
+			// Save ext1
+			SongString += "\"" + localStorage.getItem("bitty.synth.ext1") + "\"^";
+
+			// Save ext2
+			SongString += "\"" + localStorage.getItem("bitty.synth.ext2") + "\"^";
+
+			// Save ext3
+			SongString += "\"" + localStorage.getItem("bitty.synth.ext3") + "\"^";
+
+			return SongString;
+		}
+
+		// Script to encode/obfuscate Song String
+		function obfuscateString(inputString) {
+			return btoa(inputString);
+		}
+
+		// Script to decode/unobfuscate Song String
+		function deobfuscateString(inputString) {
+			return atob(inputString);
+		}
+
+		// Script to generate URI
+		function generateSongURI() {
+			return "bittysynth://" + obfuscateString(generateSongString());
+		}
+
+		// Script to load string into localStorage.
+		// String Format:
+		// 	tml1Contents,tml1Contents...tml1Contents;tml2Contents...;...;tmlEXT3Contents;^<canvas1contents>^...^<canvas5contents>^<canvasdefinitions>^"ext1"^"ext2"^"ext3"^
+		// 	<canvasNcontents> in the form of <framenumber>-{framecontents};<framenumber>-{framecontents}
+		// 	<canvasdefinitions> in the form of bpm1;ins1;bpm2;ins2;...;bpm5;ins5;
+		function loadSongString(inputString) {
+			// Initial separation.
+			var firstPassArray = inputString.split("^");
+			console.log("First Pass Split: ");
+			console.log(firstPassArray);
+
+			// Extract timeline information.
+			var tmlString = firstPassArray[0];
+			var tmlArray = tmlString.split(";");
+			for (var i = 1; i < 9; i++) {
+				var indexOfTimelineSave = i;
+				if (indexOfTimelineSave>=6) {
+					indexOfTimelineSave = "ext" + parseInt(i - 5);
+				}
+				console.log("Set " + "bitty.synth.timelinecvs" + indexOfTimelineSave + " to " + tmlArray[i - 1]);
+				if (tmlArray[i-1]!=null && tmlArray[i-1]!="null") {
+					localStorage.setItem("bitty.synth.timelinecvs" + indexOfTimelineSave, tmlArray[i - 1]);
+				}
+			}
+
+			// Read canvas bmp/ins information.
+			var canvasDefArray = firstPassArray[6].split(";");
+			canvasDefArray.pop();
+			for (var i = 5; i > 0; i--) {
+				var ins5 = canvasDefArray.pop();
+				if (ins5!="null" && ins5!=null) {
+					console.log("Set bitty.synth.selectedInstrument" + i + " to " + ins5);
+					localStorage.setItem("bitty.synth.selectedInstrument" + i, ins5);
+				}
+				var bpm5 = canvasDefArray.pop();
+				if (bpm5!="null" && bpm5!=null) {
+					console.log("Set bitty.synth.bpm" + i + " to " + bpm5);
+					localStorage.setItem("bitty.synth.bpm" + i, bpm5);
+				}
+			}
+
+			// Extract canvas information
+			for (var i = 1; i < 6; i++) {
+				var canvasString = firstPassArray[i];
+				var canvasArray = canvasString.split(";");
+
+				// Remove unwanted last empty item.
+				canvasArray.pop();
+
+				canvasArray.forEach(
+					function (element) {
+						var frameArray = element.split("-");
+						var frameNumber = frameArray[0];
+						var frameContents = frameArray[1];
+						console.log("Set " + "bitty.synth." + i + "." + frameNumber + " to " + frameContents);
+						localStorage.setItem("bitty.synth." + i + "." + frameNumber, frameContents);
+					}
+				);
+			}
+
+			// Extract external information.
+			for (var i = 7; i < 10; i++) {
+				var extArray = firstPassArray[i].split("\"");
+				var extString = extArray[1];
+				console.log("Set " + "bitty.synth.ext" + parseInt(i - 6) + " to " + extString);
+				if (extString!="null" && extString!=null) {
+					localStorage.setItem("bitty.synth.ext" + parseInt(i - 6), extString);
+				}
+			}
+		}
+
+		// Script to import sounds. Handles click.
+		function importSound() {
+			try {
+				// Check if the sound string has correct URI.
+				var URIString = txtSongString.value.substring(0, 13);
+				if (URIString!="bittysynth://") throw "Invalid bitty.synth content. ";
+
+				// Strip the URI protocol off.
+				var contentString = txtSongString.value.substring(13);
+
+				// Import
+				var importString = deobfuscateString(contentString);
+				var restore = getSettingArray();
+				localStorage.clear();
+				localStorage.setItem("com.kaellel.bitty.synth.introShown", true);
+				loadSongString(importString);
+				restoreSettingArray(restore);
+
+				// Success message
+				Materialize.toast("Sound import complete. ", 3000);
+			} catch (err) {
+				Materialize.toast("An error occured during import. Error: " + err, 3000);
+			}
+		}
+
+		txtGenSongString.value = newGenerateSongURI();
+
+		// Implement Copy to Clipboard button
+		new Clipboard("#cpyBtn");
+
+		// Script to save to FS
+		function exportToFS() {
+			if (window.navigator.userAgent.indexOf("Android") != -1 || window.navigator.userAgent.indexOf("iPhone") != -1 || window.navigator.userAgent.indexOf("iPad") != -1) {
+				console.log("Mobile Platform Detected");
+				Materialize.toast("Saving to filesystem is not supported on mobile platforms. ", 3000);
+				return;
+			} else {
+				console.log("Desktop Platform Detected");
+			}
+
+			// FS Stuff.
+			try {
+				var fs = nodeRequire('fs');
+				var app = nodeRequire('electron').remote;
+				var dialog = app.dialog;
+				dialog.showSaveDialog(function (fileName) {
+					if (fileName === undefined){
+						console.log("You didn't save the file");
+						return;
+					}
+					// fileName is a string that contains the path and filename created in the save file dialog.
+					fs.writeFile(fileName, generateSongURI(), function (err) {
+						if(err){
+							Materialize.toast("An error ocurred creating the file: "+ err.message, 4000);
+						}
+							Materialize.toast("The file has been succesfully saved. ", 4000);
+					});
+				});
+			} catch (err) {
+
+				Materialize.toast(err, 3000);
+
+			}
+
+		}
+
+		// Script to import from FS
+		function loadFromFS() {
+			if (window.navigator.userAgent.indexOf("Android") != -1 || window.navigator.userAgent.indexOf("iPhone") != -1 || window.navigator.userAgent.indexOf("iPad") != -1) {
+				console.log("Mobile Platform Detected");
+				Materialize.toast("Loading from filesystem is not supported on mobile platforms. ", 3000);
+				return;
+			} else {
+				console.log("Desktop Platform Detected");
+			}
+		}
+
+		// Script to select sample
+		function loadSample(i) {
+			var sampleString = "";
+
+			if (i==0) {
+				sampleString = HaveYourselfAMerryLittleChristmas;
+			} else if (i==1) {
+				sampleString = PhotographEdSheeran;
+			} else if (i==2) {
+				sampleString = MoonlightBeethoven;
+			} else if (i==3) {
+				sampleString = FurElise;
+			} else if (i==4) {
+				sampleString = FredericChopinPreludeOp28No4;
+			} else if (i==5) {
+				sampleString = FrozenLetItGo;
+			}
+
+			// Strip the URI protocol off.
+			var contentString = sampleString.substring(13);
+
+			// Import
+			var importString = deobfuscateString(contentString);
+			var restore = getSettingArray();
+			localStorage.clear();
+			localStorage.setItem("com.kaellel.bitty.synth.introShown", true);
+			loadSongString(importString);
+			restoreSettingArray(restore);
+
+			// Success message
+			Materialize.toast("Sound import complete. ", 3000);
+
+			// Close model
+			closeSampleModal();
+		}
+
+		function getLocalstorageState() {
+			var retString = "";
+			for (var i = 0; i < localStorage.length; i++){
+				if (localStorage.key(i).indexOf("setting") == -1) {
+					retString += localStorage.key(i) + "^" + localStorage.getItem(localStorage.key(i)) + "\n";
+				}
+			}
+			retString = retString.substring(0, retString.length - 1);
+			return retString;
+		}
+
+		function restoreLocalstorageState(inputString) {
+			var inputArr = inputString.split("\n");
+			for (var i = 0; i < inputArr.length; i++) {
+				var inputArrString = inputArr[i].split("^");
+				localStorage.setItem(inputArrString[0], inputArrString[1]);
+			}
+		}
+
+		function newImportSongString() {
+			try {
+				// Check if the sound string has correct URI.
+				var URIString = txtSongString.value.substring(0, 13);
+				if (URIString!="bittysynth://") throw "Invalid bitty.synth content. ";
+
+				// Strip the URI protocol off.
+				var contentString = txtSongString.value.substring(13);
+
+				// Import
+				var importString = deobfuscateString(contentString);
+				var restore = getSettingArray();
+				localStorage.clear();
+				localStorage.setItem("com.kaellel.bitty.synth.introShown", true);
+				restoreLocalstorageState(importString);
+				restoreSettingArray(restore);
+
+				// Success message
+				Materialize.toast("Sound import complete. ", 3000);
+			} catch (err) {
+				Materialize.toast("An error occured during import. Error: " + err, 3000);
+			}
+		}
+
+		function newGenerateSongURI(){
+			return "bittysynth://" + obfuscateString(getLocalstorageState());
+		}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--Import Google Icon Font-->
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--Import materialize.css-->
+		<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	</head>
+	<body style="background-repeat:repeat; background-image:url(images/stripes.gif); ">
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="js/materialize.min.js"></script>
+
+		<div class="row" style="width:90%; margin:auto">
+			<!-- External Sound Card -->
+			<div class="col s12 m7" style="width:100%; margin:auto">
+				<div class="card horizontal">
+					<div class="card-stacked">
+						<div class="card-content">
+							<span class="card-title grey-text text-darken-4" id="extLabel">External Sound</span>
+							<!-- Sound Information -->
+							<div class="input-field col s12">
+								<input placeholder="http://" id="txtExt" type="text" class="validate">
+								<label for="first_name">External sound location</label>
+							</div>
+							<br />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+		function parseURL(val) {
+		    var result = "Invalid Input Parameters",
+		        tmp = [];
+		    var items = location.search.substr(1).split("&");
+		    for (var index = 0; index < items.length; index++) {
+		        tmp = items[index].split("=");
+		        if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
+		    }
+		    return result;
+		}
+
+		document.getElementById("extLabel").innerHTML = "External Sound " + parseURL("extn");
+
+		function saveExt() {
+			var valu = document.getElementById("txtExt").value;
+			localStorage.setItem("bitty.synth.ext" + parseURL("extn"), valu);
+		}
+
+		function loadExt() {
+			var valu = localStorage.getItem("bitty.synth.ext" + parseURL("extn"));
+			if (valu != null && valu != "null")
+				document.getElementById("txtExt").value = valu;
+		}
+
+		loadExt();
+
+		setInterval(saveExt, 500);
+		</script>
+
+	</body>
+</html>

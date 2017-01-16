@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--Import Google Icon Font-->
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--Import materialize.css-->
+		<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>Help and Quickstart</title>
+	</head>
+	<body style="overflow-x:hidden;">
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="js/materialize.min.js"></script>
+
+		<div class="container" id="main">
+			<div style="padding:8px; padding-top:14px">
+				<b> Help Topics </b>
+			</div>
+			<ul class="collapsible" data-collapsible="expandable">
+				<li>
+					<div class="collapsible-header"><i class="material-icons">help</i>Introduction and General Usage</div>
+					<div class="collapsible-body">
+						<p>
+							<b>Welcome</b>
+							<br/><br/>
+							Bitty.synth is a simple music synthesizer designed with multi-touch in mind. Bitty.synth uses “frames” – snapshots of a sound – arranged with a seek to notate music. Individual frames with a common instrument and pace make a canvas. Mix and match up to five canvas sounds and three external sounds in a timeline view to create music, or compose on the fly using live view.
+							<br/><br/>
+							<b>The Side Menu</b>
+						</p>
+						<center><img style="max-width:400px; width: 80%; height:100%; " src="help_images/ui_usage_sidenav.gif" /></center>
+						<p>
+							To access the side menu, either press the "bitty.synth" top logo, or swipe from the left edge of the screen. The side menu allows access to all views used in bitty.synth.
+							<br/><br/>
+							<b>Back Button Navigation</b>
+							<br/><br/>
+							Pressing the Back button to navigate between views on Android devices is supported, but not recommended. Access to views is best served with the side menu.
+						</p>
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header"><i class="material-icons">help</i>The Live View</div>
+					<div class="collapsible-body">
+						<p>
+							The Live View is used to create music in a live setting. It is designed to mimic an instrumental keyboard.
+							<br/><br/>
+							<b>The Live Keyboards</b>
+						</p>
+						<center><img style="max-width:500px; width: 80%; height:100%; " src="help_images/liveview.gif" /></center>
+						<p>
+							Each dot on the Live View is used as a key on an instrument. Pressing a key will produce an associated sound. A key can only be pressed when that key is not already playing a sound.
+							<br/><br/>
+							<b>Canvas Keyboard</b>
+							<br/><br/>
+							Colored dots on the left of the Live View represent canvas keys. Pressing a key will play the corresponding canvas. A bouncing dot will indicate whether a canvas is currently playing.
+							<br/><br/>
+							<b>External Sounds Keyboard</b>
+							<br/><br/>
+							Grey dots on the center of the Live View represent external sound keys. Pressing a key will play the corresponding external sound. A boucing dot will indicate whether an external sound is currently playing. If an external sound is not loaded, a message "No ext" will appear briefly.
+							<br/><br/>
+							<b>Miniature Keyboard</b>
+							<br/><br/>
+							Purple dots on the right of the Live View represent a miniature keyboard. Pressing a key will play the corresponding note. Hovering over keys with a mouse or a touch point will also play the corresponding note. The Miniature keyboard can be configured and disabled in Settings; it may impact performance on low powered devices.
+						</p>
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header"><i class="material-icons">help</i>The Timeline View</div>
+					<div class="collapsible-body">
+						<p>
+							The Timeline View is used to compose music that can be played back. Sounds can be arranged, repeated, and synchronized on individual timelines that make up a complete sound.
+						</p>
+						<center><img style="max-width:500px; width: 80%; height:100%; " src="help_images/timelineview.gif" /></center>
+						<p>
+							<b>Canvas Timelines</b>
+							<br/><br/>
+							Colored and numbered timelines represent canvas timelines. Each canvas timeline can be scrolled individually. To add a canvas sound to a certain time, simply press that point in time on the timeline. To remove a canvas sound from a certain time, simply press the canvas sound.
+							<br/><br/>
+							<b>External Sound Timelines</b>
+							<br/><br/>
+							Grey timelines represent external sound timelines. Each external sound timeline can be scrolled individually. To add an external sound to a certain time, simply press that point in time on the timeline. To remove an external sound from a certain time, simply press the external sound.
+							<br/><br/>
+							<b>Timeline Playback</b>
+							<br/><br/>
+							Pressing the red Play button at the bottom of the Timeline View toggles playback of the composed sound. Black arrows on each individual timeline indicate playback progress.
+						</p>
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header"><i class="material-icons">help</i>The Canvas</div>
+					<div class="collapsible-body">
+						<p>
+							The canvas view shows a frame in a sound sequence. Multiple frames make up a canvas sound. Colored dot keys represents keys on an instrument. Their notes are labeled.
+							<br/><br/>
+							Solid filled dots represent notes placed on a frame; shadowed dots represet note hints.
+							<br/><br/>
+							<b>Editing Canvas Frames</b>
+						</p>
+						<center><img style="max-width:500px; width: 80%; height:100%; " src="help_images/canvas_edit.gif" /></center>
+						<p>
+							To add or remove a note to a frame, press that note.
+						</p>
+						<center><img style="max-width:500px; width: 80%; height:100%; " src="help_images/canvas_hover_to_preview.gif" /></center>
+						<p>
+							To preview a note, hover a cursor or touch point over that note.
+							<br/><br/>
+							<b>Navigating Menu Items</b>
+						</p>
+						<center><img style="max-width:500px; width: 80%; height:100%; " src="help_images/canvas_FAB.gif" /></center>
+						<p>
+							To open a menu with additional actions, press the red floating action button.
+						</p>
+						<center><img style="max-width:500px; width: 80%; height:100%; " src="help_images/canvas_copy_paste.gif" /></center>
+						<p>
+							Copying, pasting, and deleting frame contents can be accessed in the menu.
+							<br/><br/>
+							<b>Moving Between Frames</b>
+						</p>
+						<center><img style="max-width:500px; width: 80%; height:100%; " src="help_images/canvas_prevnext.gif" /></center>
+						<p>
+							Pressing the previous frame and next frame buttons in the menu can be used to navigate between frames.
+						</p>
+						<center><img style="max-width:500px; width: 80%; height:100%; " src="help_images/canvas_seek.gif" /></center>
+						<p>
+							The canvas seek, accessed from the menu, can also be used to move between frames.
+							<br/><br/>
+							<b>Canvas Properties and Effects</b>
+						</p>
+						<center><img style="max-width:500px; width: 80%; height:100%; " src="help_images/canvas_bpm_instrument.gif" /></center>
+						<p>
+							The canvas seek also contains canvas properties, such as the selected instrument, and the bpm, the pace at which frames are played.
+						</p>
+						<center><img style="max-width:500px; width: 80%; height:100%; " src="help_images/canvas_fx.gif" /></center>
+						<p>
+							Canvas effects, such as volume effects and pitch effects, can be edited from the menu. Volume and pitch effects should be written in the form of a function of f(x). Volume effects should produce a range of 0 < vF(x) < 127, and pitch effects can take both positive and negative values.
+						</p>
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header"><i class="material-icons">help</i>External Sounds</div>
+					<div class="collapsible-body">
+						<p>
+							External sounds are files from elsewhere, such as files from a local file system, or from the internet. Input a file's full URI, including protocol, such as "https://" or "file://". Files from a local file system are not recommended as their locations may change from user to user.
+						</p>
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header"><i class="material-icons">help</i>The Start Page</div>
+					<div class="collapsible-body">
+						<p>
+							The Start Page is displayed on every startup. It features shortcuts to views and convenient features.
+							<br/><br/>
+							<b>Common Actions</b>
+						</p>
+						<center><img style="max-width:500px; width: 80%; height:100%; " src="help_images/start_clear_and_recreate.gif" /></center>
+						<p>
+							Clear and recreate clears any saved sound and jump to the first canvas.
+						</p>
+						<center><img style="max-width:500px; width: 80%; height:100%; " src="help_images/start_load_sample.gif" /></center>
+						<p>
+							Load a sample sound. Loading a sample sound will clear all saved sounds.
+						</p>
+						<center><img style="max-width:500px; width: 80%; height:100%; " src="help_images/start_import_sound.gif" /></center>
+						<p>
+							Import a sound from a bitty.synth URI definition. Importing a sound will clear all saved sounds.
+						</p>
+						<center><img style="max-width:500px; width: 80%; height:100%; " src="help_images/start_share_sounds.gif" /></center>
+						<p>
+							Share a saved sound in terms of a bitty.synth URI definition.
+							<br/><br/>
+							<b>Other Information</b>
+							<br/><br/>
+							Bitty.synth uses internet connectivity to load Google's Icon Font.
+						</p>
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header"><i class="material-icons">help</i>Settings Usage</div>
+					<div class="collapsible-body">
+						<p>
+							Configure bitty.synth settings with the Settings view.
+							<br/><br/>
+							<b>Settings Help</b>
+							<div style="padding-left:32px; padding-right:32px">
+								<ul class="browser-default">
+									<li > Name information is used to store Author Information. It is not transmitted across any network. </li>
+									<li > Enabling multithreaded playback allows for smoother performance on low powered devices such as Android devices. It cannot be used on desktop/PC versions of bitty.synth due to limitations with the Electron framework. </li>
+									<li > Graphics quality can be adjusted to increase performance.</li>
+									<li > Shadows for previous points are grey dots presented in the Canvas View. </li>
+									<li > Pattern based hinting sequence length adjusts how far back bitty.synth looks from the selected frame when suggesting hints. Turning this feature off may improve performance on low powered devices.</li>
+									<li > Hint note count configures the number of hints bitty.synth generates per note in each frame. </li>
+									<li > Hint library configures the source of hints generated by bitty.synth. </li>
+									<li > Hint lookup mode configures how hints are generated. In discrete mode, the most recurring notes are hinted; in probabilistic mode, a series of notes are hinted by weighted probability. </li>
+								</ul>
+							</div>
+						</p>
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header"><i class="material-icons">help</i>Predictive Hints</div>
+					<div class="collapsible-body">
+						<p>
+							The predictive library can be accessed via the side menu.
+						</p>
+						<center><img style="max-width:500px; width: 80%; height:100%; " src="help_images/predictive_library.gif" /></center>
+						<p>
+							Technical descriptions of how the predictive library functions is located in the library browser.
+						</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>
